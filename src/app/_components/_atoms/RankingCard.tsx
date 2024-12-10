@@ -1,7 +1,15 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 
-export const RankingCard = () => {
+type Props = {
+  id: number;
+  user: string;
+  postDate: string;
+  tag: string;
+  title: string;
+};
+
+export const RankingCard = (props: Props) => {
   return (
     <>
       <Box
@@ -17,18 +25,18 @@ export const RankingCard = () => {
         }}
       >
         <Box display={"flex"} justifyContent={"space-between"}>
-          <Typography>#test</Typography>
-          <Typography>1日前</Typography>
+          <Typography>{props.tag}</Typography>
+          <Typography>{props.postDate}</Typography>
         </Box>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            TEST:たのしくあそびましょう
+            {props.title}
           </Typography>
         </Box>
         <Box display={"flex"} justifyContent={"space-between"}>
           <Box display={"flex"} gap={"5px"} alignItems={"center"}>
             <Avatar>A</Avatar>
-            <Typography>aaaaaaa</Typography>
+            <Typography>{props.user}</Typography>
           </Box>
         </Box>
       </Box>
