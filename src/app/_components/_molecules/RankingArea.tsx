@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { RankingCard } from "../_atoms/RankingCard";
 import { rankingList } from "@/app/_mock/mockRankingList";
+import Link from "next/link";
 
 export const RankingArea = () => {
   return (
