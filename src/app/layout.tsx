@@ -1,9 +1,9 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { Header } from "./_components/_organisms/Header";
 // import lightTheme from "./_theme/lightTheme";
 import darkTheme from "./_theme/darkTheme";
+import { Header } from "./_components/Header";
 
 export const metadata: Metadata = {
   title: "FEARE",

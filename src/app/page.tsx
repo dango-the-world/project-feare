@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { TopContents } from "./_components/_organisms/TopContents";
-import FloatingActionButton from "./_components/_atoms/PostButton";
+import FloatingActionButton from "./_components/top/PostButton";
+import { TopContents } from "./_components/top/TopContents";
 
 const page = () => {
   return (
