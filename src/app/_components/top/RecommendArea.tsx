@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { PostCard } from "../_atoms/PostCard";
+
 import { rankingList } from "@/app/_mock/mockRankingList";
+import { PostCard } from "./PostCard";
 
 export const RecommendArea = () => {
   return (

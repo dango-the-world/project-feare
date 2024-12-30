@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { RankingArea } from "../_molecules/RankingArea";
-import { RecommendArea } from "../_molecules/RecommendArea";
+import { RankingArea } from "./RankingArea";
+import { RecommendArea } from "./RecommendArea";
 
 export const TopContents = () => {
   return (
