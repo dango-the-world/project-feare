@@ -6,10 +6,14 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#003659",
+      main: "#111827",
     },
     secondary: {
-      main: "#003659",
+      main: "#111827",
+    },
+    background: {
+      default: "#111827", // 背景色を設定
+      paper: "#111827", // カードやコンテナの背景色
     },
   },
   typography: {

@@ -6,7 +6,7 @@ import { RecommendArea } from "./RecommendArea";
 export const TopContents = () => {
   return (
     <>
-      <Box width={"1000px"} margin={"auto"}>
+      <Box width={"1000px"} margin={"20px auto"}>
         <RankingArea />
         <RecommendArea />
       </Box>
