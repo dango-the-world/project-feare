@@ -18,7 +18,8 @@ export const PostCard = (props: Props) => {
         height={"150px"}
         padding={"10px"}
         mb={"10px"}
-        bgcolor={"#444"}
+        border={"3px solid #680c62"}
+        bgcolor={"#1F2937"}
         sx={{
           flexDirection: "column",
           justifyContent: "space-between",

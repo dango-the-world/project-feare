@@ -12,7 +12,7 @@ const headerDarkTheme = createTheme({
       main: "#E6EDF3",
     },
     secondary: {
-      main: "#003659",
+      main: "#111827",
     },
   },
 });
@@ -25,17 +25,20 @@ export const Header = () => {
         justifyContent={"space-between"}
         padding={"10px"}
         bgcolor={headerDarkTheme.palette.secondary.main}
+        sx={{
+          boxShadow: "0px 8px 12px rgba(0, 0, 0, 0.5)", // 下部に影を追加
+        }}
       >
         <Typography variant="h4" color="#fff">
           FEARE
         </Typography>
+        <TextField
+          size="small"
+          sx={{ width: "400px" }}
+          label="Search"
+          variant="outlined"
+        />
         <Box display={"flex"} alignItems={"center"} gap={"20px"}>
-          <TextField
-            size="small"
-            sx={{ width: "400px" }}
-            label="Search"
-            variant="outlined"
-          />
           <Button sx={{ height: "40px", padding: "10px" }} variant="text">
             ログイン
           </Button>
