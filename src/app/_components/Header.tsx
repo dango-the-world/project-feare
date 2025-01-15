@@ -32,13 +32,13 @@ export const Header = () => {
         <Typography variant="h4" color="#fff">
           FEARE
         </Typography>
+        <TextField
+          size="small"
+          sx={{ width: "400px" }}
+          label="Search"
+          variant="outlined"
+        />
         <Box display={"flex"} alignItems={"center"} gap={"20px"}>
-          <TextField
-            size="small"
-            sx={{ width: "400px" }}
-            label="Search"
-            variant="outlined"
-          />
           <Button sx={{ height: "40px", padding: "10px" }} variant="text">
             ログイン
           </Button>

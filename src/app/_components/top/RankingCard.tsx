@@ -17,7 +17,8 @@ export const RankingCard = (props: Props) => {
         width={"300px"}
         height={"200px"}
         padding={"10px"}
-        bgcolor={"#444"}
+        bgcolor={"#1F2937"}
+        border={"3px solid #680c62"}
         sx={{
           flexDirection: "column",
           justifyContent: "space-between",
