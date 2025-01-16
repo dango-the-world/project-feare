@@ -47,9 +47,11 @@ export const Header = () => {
           variant="outlined"
         />
         <Box display={"flex"} alignItems={"center"} gap={"20px"}>
-          <Button sx={{ height: "40px", padding: "10px" }} variant="text">
-            ログイン
-          </Button>
+          <Link href={"/login"}>
+            <Button sx={{ height: "40px", padding: "10px" }} variant="text">
+              ログイン
+            </Button>
+          </Link>
           <Button sx={{ height: "40px", padding: "10px" }} variant="contained">
             新規登録
           </Button>
