@@ -3,6 +3,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Link from "next/link";
 // import darkTheme from "../../_theme/darkTheme";
 
 const headerDarkTheme = createTheme({
@@ -29,9 +30,16 @@ export const Header = () => {
           boxShadow: "0px 8px 12px rgba(0, 0, 0, 0.5)", // 下部に影を追加
         }}
       >
-        <Typography variant="h4" color="#fff">
-          FEARE
-        </Typography>
+        <Link
+          href={"/"}
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <Typography variant="h4" color="#fff">
+            FEARE
+          </Typography>
+        </Link>
         <TextField
           size="small"
           sx={{ width: "400px" }}
