@@ -8,7 +8,7 @@ export async function GET() {
         user: true, // 投稿したユーザー情報を含む
       },
       orderBy: {
-        createdAt: "desc", // 作成日時で降順に並べる
+        scaryCount: "desc", // 作成日時で降順に並べる
       },
     });
 
