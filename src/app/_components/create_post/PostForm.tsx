@@ -2,118 +2,78 @@ import {
   Box,
   Button,
   FormControl,
-  InputLabel,
-  MenuItem,
+  Label,
   Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+  Input,
+  Textarea,
+  Text,
+} from "@yamada-ui/react";
 import React from "react";
 
 export const PostForm = () => {
   return (
     <Box
-      bgcolor={"#1F2937"}
-      border={"3px solid #680c62"}
-      display={"flex"}
-      flexDirection={"column"}
-      alignItems={"center"}
-      gap={"30px"}
-      py={"40px"}
-      my={"60px"}
-      borderRadius={"10px"}
+      bg="gray.800"
+      border="3px solid #680c62"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      gap="30px"
+      py="40px"
+      my="60px"
+      borderRadius="10px"
     >
-      <Typography>怖い話を投稿</Typography>
+      <Text fontSize="xl" color="white">
+        怖い話を投稿
+      </Text>
 
-      <Box
-        sx={{
-          width: "80%",
-        }}
-      >
-        <TextField
-          label="タイトル"
-          sx={{
-            width: "100%",
-            bgcolor: "#313c4b",
-          }}
+      <Box width="80%">
+        <Input
+          placeholder="タイトル"
+          width="100%"
+          bg="gray.700"
+          color="white"
         />
       </Box>
 
-      <Box
-        sx={{
-          width: "80%",
-        }}
-      >
-        <TextField
-          label="本文"
-          multiline
-          minRows={15}
-          sx={{
-            width: "100%",
-            bgcolor: "#313c4b",
-          }}
+      <Box width="80%">
+        <Textarea
+          placeholder="本文"
+          minHeight="200px"
+          width="100%"
+          bg="gray.700"
+          color="white"
         />
       </Box>
 
-      <Box width={"80%"}>
+      <Box width="80%">
         <input
           accept="image/*"
           id="image-upload"
           type="file"
-          style={{ display: "none" }} // inputを隠す
+          style={{ display: "none" }}
         />
         <label htmlFor="image-upload">
-          <Button
-            variant="contained"
-            component="span"
-            sx={{
-              textAlign: "left",
-              width: "100%",
-              padding: "10px",
-              color: "#ffffff",
-              bgcolor: "#313c4b",
-            }}
-          >
+          <Button as="span" width="100%" py="10px" color="white" bg="gray.700">
             イメージを投稿
           </Button>
         </label>
       </Box>
 
-      <Box
-        sx={{
-          width: "80%",
-        }}
-      >
-        <FormControl
-          sx={{
-            width: "100%",
-            bgcolor: "#313c4b",
-          }}
-        >
-          <InputLabel id="demo-simple-select-label">タグ</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="タグ"
-          >
-            <MenuItem value={10}>創作</MenuItem>
-            <MenuItem value={20}>日常</MenuItem>
-            <MenuItem value={30}>悪夢</MenuItem>
-            <MenuItem value={40}>悪夢</MenuItem>
+      <Box width="80%">
+        <FormControl width="100%">
+          <Label color="white">タグ</Label>
+          <Select placeholder="タグ">
+            <option value={10}>創作</option>
+            <option value={20}>日常</option>
+            <option value={30}>悪夢</option>
+            <option value={40}>怪談</option>
           </Select>
         </FormControl>
       </Box>
 
-      <Box width={"100%"} display={"flex"} justifyContent={"center"}>
-        <Button
-          variant="contained"
-          sx={{
-            width: "80%",
-            padding: "10px",
-            color: "#FFFFFF",
-            bgcolor: "#680c62",
-          }}
-        >
+      <Box width="100%" display="flex" justifyContent="center">
+        <Button width="80%" py="10px" color="white" bg="#680c62">
           投稿
         </Button>
       </Box>
