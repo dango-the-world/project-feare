@@ -1,21 +1,17 @@
 "use client";
 
 import React from "react";
-import { RankingCard } from "./RankingCard";
 import useFetchPopular from "@/app/_hooks/useFetchPopular";
 import Link from "next/link";
-import { Box, Text } from "@yamada-ui/react";
+import { Box } from "@yamada-ui/react";
+import { PostCard } from "./PostCard";
 
 export const RankingArea = () => {
   const { popularPost } = useFetchPopular();
   return (
     <>
       <Box p={"20px"}>
-        <Text variant="h6" py={"10px"}>
-          ランキング
-        </Text>
-
-        <Box display={"flex"} gap={"10px"} justifyContent={"left"}>
+        <Box>
           {popularPost.map((index) => (
             <Link
               href={"/post_detail"}
@@ -25,7 +21,7 @@ export const RankingArea = () => {
                 color: "#eeeeee",
               }}
             >
-              <RankingCard
+              <PostCard
                 id={index.id}
                 user={index.user.username}
                 postDate={index.createdAt}

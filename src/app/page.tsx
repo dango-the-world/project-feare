@@ -5,7 +5,7 @@ import { Box } from "@yamada-ui/react";
 const page = () => {
   return (
     <>
-      <Box bgColor={"#111827"} margin={"0"}>
+      <Box margin={"0"}>
         <TopContents />
       </Box>
     </>
