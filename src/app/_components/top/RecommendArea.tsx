@@ -1,9 +1,10 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+// import { Box, Typography } from "@mui/material";
 import React from "react";
 import { PostCard } from "./PostCard";
 import useFetchPost from "@/app/_hooks/useFetchPost";
 import Link from "next/link";
+import { Box, Text } from "@yamada-ui/react";
 
 export const RecommendArea = () => {
   const { newPost } = useFetchPost();
@@ -11,9 +12,9 @@ export const RecommendArea = () => {
   return (
     <>
       <Box p={"20px"}>
-        <Typography variant="h6" py={"10px"}>
+        <Text variant="h6" py={"10px"}>
           新着
-        </Typography>
+        </Text>
         <Box>
           {newPost.map((index) => (
             <Link

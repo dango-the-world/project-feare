@@ -1,62 +1,35 @@
 "use client";
 
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Flex, Box, Button, Input, Text } from "@yamada-ui/react";
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
-// import darkTheme from "../../_theme/darkTheme";
-
-const headerDarkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#E6EDF3",
-    },
-    secondary: {
-      main: "#111827",
-    },
-  },
-});
 
 export const Header = () => {
   return (
-    <ThemeProvider theme={headerDarkTheme}>
-      <Box
-        display={"flex"}
-        justifyContent={"space-between"}
-        padding={"10px"}
-        bgcolor={headerDarkTheme.palette.secondary.main}
-        sx={{
-          boxShadow: "0px 8px 12px rgba(0, 0, 0, 0.5)", // 下部に影を追加
-        }}
-      >
-        <Link
-          href={"/"}
-          style={{
-            textDecoration: "none",
-          }}
-        >
-          <Typography variant="h4" color="#fff">
+    <Box
+      as="header"
+      bg="gray.900"
+      boxShadow="0px 8px 12px rgba(0, 0, 0, 0.5)"
+      p={3}
+    >
+      <Flex justify="space-between" align="center">
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <Text fontSize="2xl" fontWeight="bold" color="white">
             FEARE
-          </Typography>
+          </Text>
         </Link>
-        <TextField
-          size="small"
-          sx={{ width: "400px" }}
-          label="Search"
-          variant="outlined"
-        />
-        <Box display={"flex"} alignItems={"center"} gap={"20px"}>
-          <Link href={"/login"}>
-            <Button sx={{ height: "40px", padding: "10px" }} variant="text">
+        <Input placeholder="Search" width="400px" />
+        <Flex align="center" gap={5}>
+          <Link href="/login">
+            <Button variant="ghost" height="40px" px={4}>
               ログイン
             </Button>
           </Link>
-          <Button sx={{ height: "40px", padding: "10px" }} variant="contained">
+          <Button height="40px" px={4} colorScheme="blue">
             新規登録
           </Button>
-        </Box>
-      </Box>
-    </ThemeProvider>
+        </Flex>
+      </Flex>
+    </Box>
   );
 };
