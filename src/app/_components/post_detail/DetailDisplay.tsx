@@ -1,38 +1,34 @@
+"use client";
+
+import useFetchDetail from "@/app/_hooks/useFetchDetail";
 import { Avatar, Box, Text } from "@yamada-ui/react";
+import { useParams } from "next/navigation";
 import React from "react";
 
 export const DetailDisplay = () => {
-  return (
-    <Box padding={"40px 0"}>
-      <Text>#タグ</Text>
-      <Text variant="h4" lineHeight={"3rem"}>
-        Title
-      </Text>
-      <Box></Box>
-      <Box display={"flex"} gap={"5px"} alignItems={"center"}>
-        <Avatar>A</Avatar>
-        <Text>ユーザー名</Text>
-      </Box>
+  const params = useParams();
+  const postId = params.id as string;
+  const { postDetail } = useFetchDetail(postId);
 
-      <Box margin={"40px 0"}>
-        <Text>
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-          ああああああああああああああああああああああああああああああああああああああ
-        </Text>
-      </Box>
+  return (
+    <Box>
+      {postDetail.map((index) => (
+        <Box padding={"40px 0"} key={index.id}>
+          <Text>#{index.tags}</Text>
+          <Text lineHeight={"4rem"} fontSize={"2rem"} fontWeight={"bold"}>
+            {index.title}
+          </Text>
+          {/* <Box></Box> */}
+          <Box display={"flex"} gap={"10px"} alignItems={"center"}>
+            <Avatar size={"sm"} />
+            <Text>{index.user.username}</Text>
+          </Box>
+
+          <Box margin={"40px 0"}>
+            <Text>{index.content}</Text>
+          </Box>
+        </Box>
+      ))}
     </Box>
   );
 };
