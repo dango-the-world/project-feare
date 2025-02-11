@@ -1,7 +1,5 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { UIProvider } from "@yamada-ui/react";
 import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import darkTheme from "./_theme/darkTheme";
 import { Header } from "./_components/Header";
 
 export const metadata: Metadata = {
@@ -17,13 +15,10 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <AppRouterCacheProvider>
-            <Header />
-            {children}
-          </AppRouterCacheProvider>
-        </ThemeProvider>
+        <UIProvider>
+          <Header />
+          {children}
+        </UIProvider>
       </body>
     </html>
   );
