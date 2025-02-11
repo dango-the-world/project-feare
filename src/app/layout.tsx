@@ -1,6 +1,7 @@
 import { UIProvider } from "@yamada-ui/react";
-import type { Metadata } from "next";
+import darkTheme from "./_theme/darkTheme";
 import { Header } from "./_components/Header";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FEARE",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <UIProvider>
+        <UIProvider theme={darkTheme}>
           <Header />
           {children}
         </UIProvider>

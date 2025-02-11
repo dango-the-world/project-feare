@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Input, Text } from "@yamada-ui/react";
 import Link from "next/link";
 import React from "react";
 
@@ -12,15 +12,15 @@ export const LoginCard = () => {
       gap={"20px"}
       width={"500px"}
       height={"500px"}
-      bgcolor={"#1F2937"}
+      backgroundColor={"#1F2937"}
       border={"3px solid #680c62"}
       borderRadius={"10px"}
     >
-      <Typography variant="h5">ログイン</Typography>
+      <Text variant="h5">ログイン</Text>
 
       <Box width={"80%"}>
-        <TextField
-          label="メールアドレス"
+        <Input
+          placeholder="メールアドレス"
           size="small"
           sx={{
             width: "100%",
@@ -29,8 +29,8 @@ export const LoginCard = () => {
           }}
         />
 
-        <TextField
-          label="パスワード"
+        <Input
+          placeholder="パスワード"
           type="password"
           size="small"
           sx={{
@@ -52,7 +52,7 @@ export const LoginCard = () => {
         </Button>
       </Box>
 
-      <Typography>
+      <Text>
         アカウントをお持ちでない方は
         <Link
           href={"/"}
@@ -63,7 +63,7 @@ export const LoginCard = () => {
         >
           新規登録
         </Link>
-      </Typography>
+      </Text>
     </Box>
   );
 };
