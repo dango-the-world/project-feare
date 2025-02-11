@@ -36,8 +36,8 @@ export const RankingCard = (props: Props) => {
         </Box>
         <Box display={"flex"} justifyContent={"space-between"}>
           <Box display={"flex"} gap={"5px"} alignItems={"center"}>
-            <Avatar size={"xs"} />
-            <Text>{props.user}</Text>
+            <Avatar w={"35px"} />
+            <Text w={"35px"}>{props.user}</Text>
           </Box>
         </Box>
       </Box>

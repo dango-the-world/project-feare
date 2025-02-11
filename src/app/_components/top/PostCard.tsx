@@ -37,7 +37,7 @@ export const PostCard = (props: Props) => {
         </Box>
         <Box display={"flex"} justifyContent={"space-between"}>
           <Box display={"flex"} gap={"5px"} alignItems={"center"}>
-            <Avatar size={"md"} />
+            <Avatar w={"35px"} />
             <Text>{props.user}</Text>
           </Box>
         </Box>
