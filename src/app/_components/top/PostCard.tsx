@@ -2,7 +2,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 
 type Props = {
-  id: number;
+  id: string;
   user: string;
   postDate: string;
   tag: string;
@@ -27,7 +27,7 @@ export const PostCard = (props: Props) => {
         }}
       >
         <Box display={"flex"} justifyContent={"space-between"}>
-          <Typography>{props.tag}</Typography>
+          <Typography>#{props.tag}</Typography>
           <Typography>{props.postDate}</Typography>
         </Box>
         <Box>

@@ -1,26 +1,37 @@
+"use client";
 import { Box, Typography } from "@mui/material";
 import React from "react";
-
-import { rankingList } from "@/app/_mock/mockRankingList";
 import { PostCard } from "./PostCard";
+import useFetchPost from "@/app/_hooks/useFetchPost";
+import Link from "next/link";
 
 export const RecommendArea = () => {
+  const { newPost } = useFetchPost();
+
   return (
     <>
       <Box p={"20px"}>
         <Typography variant="h6" py={"10px"}>
-          おすすめの投稿
+          新着
         </Typography>
         <Box>
-          {rankingList.map((index) => (
-            <PostCard
+          {newPost.map((index) => (
+            <Link
+              href={"/post_detail"}
               key={index.id}
-              id={index.id}
-              user={index.user}
-              postDate={index.postDate}
-              tag={index.tag}
-              title={index.title}
-            />
+              style={{
+                textDecoration: "none",
+                color: "#eeeeee",
+              }}
+            >
+              <PostCard
+                id={index.id}
+                user={index.user.username}
+                postDate={index.createdAt}
+                tag={index.tags}
+                title={index.title}
+              />
+            </Link>
           ))}
         </Box>
       </Box>
