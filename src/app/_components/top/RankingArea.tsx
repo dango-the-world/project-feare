@@ -1,18 +1,19 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+
 import React from "react";
 import { RankingCard } from "./RankingCard";
 import useFetchPopular from "@/app/_hooks/useFetchPopular";
 import Link from "next/link";
+import { Box, Text } from "@yamada-ui/react";
 
 export const RankingArea = () => {
   const { popularPost } = useFetchPopular();
   return (
     <>
       <Box p={"20px"}>
-        <Typography variant="h6" py={"10px"}>
+        <Text variant="h6" py={"10px"}>
           ランキング
-        </Typography>
+        </Text>
 
         <Box display={"flex"} gap={"10px"} justifyContent={"left"}>
           {popularPost.map((index) => (

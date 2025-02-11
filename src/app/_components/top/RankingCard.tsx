@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Text } from "@yamada-ui/react";
 import React from "react";
 
 type Props = {
@@ -17,7 +17,7 @@ export const RankingCard = (props: Props) => {
         width={"300px"}
         height={"200px"}
         padding={"10px"}
-        bgcolor={"#1F2937"}
+        backgroundColor={"#1F2937"}
         border={"3px solid #680c62"}
         sx={{
           flexDirection: "column",
@@ -26,18 +26,18 @@ export const RankingCard = (props: Props) => {
         }}
       >
         <Box display={"flex"} justifyContent={"space-between"}>
-          <Typography>{props.tag}</Typography>
-          <Typography>{props.postDate}</Typography>
+          <Text>{props.tag}</Text>
+          <Text>{props.postDate}</Text>
         </Box>
         <Box>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          <Text variant="h6" sx={{ fontWeight: "bold" }}>
             {props.title}
-          </Typography>
+          </Text>
         </Box>
         <Box display={"flex"} justifyContent={"space-between"}>
           <Box display={"flex"} gap={"5px"} alignItems={"center"}>
             <Avatar>A</Avatar>
-            <Typography>{props.user}</Typography>
+            <Text>{props.user}</Text>
           </Box>
         </Box>
       </Box>

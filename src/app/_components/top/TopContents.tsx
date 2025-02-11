@@ -1,8 +1,8 @@
-import { Box } from "@mui/material";
 import React from "react";
 import { RankingArea } from "./RankingArea";
 import { RecommendArea } from "./RecommendArea";
 import PostButton from "./PostButton";
+import { Box } from "@yamada-ui/react";
 
 export const TopContents = () => {
   return (

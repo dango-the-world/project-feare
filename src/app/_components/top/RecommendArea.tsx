@@ -1,5 +1,4 @@
 "use client";
-// import { Box, Typography } from "@mui/material";
 import React from "react";
 import { PostCard } from "./PostCard";
 import useFetchPost from "@/app/_hooks/useFetchPost";
