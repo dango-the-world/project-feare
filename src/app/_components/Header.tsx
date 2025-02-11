@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <Box
       as="header"
-      bg="gray.900"
+      bg="#111827"
       boxShadow="0px 8px 12px rgba(0, 0, 0, 0.5)"
       p={3}
     >
@@ -18,10 +18,10 @@ export const Header = () => {
             FEARE
           </Text>
         </Link>
-        <Input placeholder="Search" width="400px" />
+        <Input placeholder="検索" width="400px" />
         <Flex align="center" gap={5}>
           <Link href="/login">
-            <Button variant="ghost" height="40px" px={4}>
+            <Button variant="ghost" height="40px" px={4} color={"#fff"}>
               ログイン
             </Button>
           </Link>
