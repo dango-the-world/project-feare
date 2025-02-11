@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box } from "@yamada-ui/react";
 import React from "react";
 
 export const LoginForm = () => {

@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
 import React from "react";
 import { DetailImage } from "./DetailImage";
 import { DetailDisplay } from "./DetailDisplay";
+import { Box } from "@yamada-ui/react";
 
 export const DetailContent = () => {
   return (

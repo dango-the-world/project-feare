@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box } from "@yamada-ui/react";
 import React from "react";
 
 export const DetailImage = () => {
@@ -7,7 +7,7 @@ export const DetailImage = () => {
       width={"100%"}
       borderRadius={"10px"}
       height={"250px"}
-      bgcolor={"#dddddd"}
+      backgroundColor={"#dddddd"}
       mt={"40px"}
     ></Box>
   );

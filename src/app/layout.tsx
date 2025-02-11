@@ -1,8 +1,8 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import darkTheme from "./_theme/darkTheme";
+import { UIProvider } from "@yamada-ui/react";
+// import darkTheme from "./_theme/darkTheme";
 import { Header } from "./_components/Header";
+import type { Metadata } from "next";
+// import { theme } from "./_theme";
 
 export const metadata: Metadata = {
   title: "FEARE",
@@ -16,14 +16,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <AppRouterCacheProvider>
-            <Header />
-            {children}
-          </AppRouterCacheProvider>
-        </ThemeProvider>
+      <body
+        style={{
+          backgroundColor: "#111827",
+        }}
+      >
+        <UIProvider>
+          <Header />
+          {children}
+        </UIProvider>
       </body>
     </html>
   );

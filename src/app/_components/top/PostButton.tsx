@@ -1,21 +1,18 @@
 import React from "react";
-import { Fab, Box } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { IconButton, Box } from "@yamada-ui/react";
+import { MdAdd } from "react-icons/md";
 import Link from "next/link";
 
 const PostButton = () => {
   return (
     <Link href={"/create_post"}>
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 16,
-          right: 16,
-        }}
-      >
-        <Fab color="primary" aria-label="add">
-          <AddIcon />
-        </Fab>
+      <Box position="fixed" bottom="16px" right="16px">
+        <IconButton
+          colorScheme="blue"
+          size="lg"
+          aria-label="add"
+          icon={<MdAdd />}
+        />
       </Box>
     </Link>
   );

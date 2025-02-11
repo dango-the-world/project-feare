@@ -1,21 +1,21 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Text } from "@yamada-ui/react";
 import React from "react";
 
 export const DetailDisplay = () => {
   return (
     <Box padding={"40px 0"}>
-      <Typography>#タグ</Typography>
-      <Typography variant="h4" lineHeight={"3rem"}>
+      <Text>#タグ</Text>
+      <Text variant="h4" lineHeight={"3rem"}>
         Title
-      </Typography>
+      </Text>
       <Box></Box>
       <Box display={"flex"} gap={"5px"} alignItems={"center"}>
         <Avatar>A</Avatar>
-        <Typography>ユーザー名</Typography>
+        <Text>ユーザー名</Text>
       </Box>
 
       <Box margin={"40px 0"}>
-        <Typography>
+        <Text>
           ああああああああああああああああああああああああああああああああああああああ
           ああああああああああああああああああああああああああああああああああああああ
           ああああああああああああああああああああああああああああああああああああああ
@@ -31,7 +31,7 @@ export const DetailDisplay = () => {
           ああああああああああああああああああああああああああああああああああああああ
           ああああああああああああああああああああああああああああああああああああああ
           ああああああああああああああああああああああああああああああああああああああ
-        </Typography>
+        </Text>
       </Box>
     </Box>
   );
