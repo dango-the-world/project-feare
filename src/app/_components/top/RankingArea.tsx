@@ -14,7 +14,7 @@ export const RankingArea = () => {
         <Box>
           {popularPost.map((index) => (
             <Link
-              href={"/post_detail"}
+              href={`/post_detail/${index.id}`}
               key={index.id}
               style={{
                 textDecoration: "none",
