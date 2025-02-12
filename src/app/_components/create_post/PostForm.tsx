@@ -1,16 +1,43 @@
+"use client";
+
+import { useCreatePost } from "@/app/_hooks/useCreatePost";
 import {
   Box,
   Button,
   FormControl,
-  Label,
   Select,
   Input,
   Textarea,
   Text,
+  Option,
 } from "@yamada-ui/react";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 
 export const PostForm = () => {
+  const { createPost, isLoading, error } = useCreatePost();
+
+  // フォームの状態
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [tags, setSelectedTag] = useState("");
+
+  const handleSubmit = async () => {
+    if (!title || !content || !tags) {
+      alert("タイトル、本文、タグをすべて入力してください。");
+      return;
+    }
+
+    try {
+      await createPost({ title, content, tags });
+      alert("投稿が完了しました！");
+      setTitle("");
+      setContent("");
+      setSelectedTag("");
+    } catch (err) {
+      alert("投稿に失敗しました。");
+    }
+  };
+
   return (
     <Box
       bg="gray.800"
@@ -33,6 +60,8 @@ export const PostForm = () => {
           width="100%"
           bg="gray.700"
           color="white"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </Box>
 
@@ -43,38 +72,50 @@ export const PostForm = () => {
           width="100%"
           bg="gray.700"
           color="white"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-      </Box>
-
-      <Box width="80%">
-        <input
-          accept="image/*"
-          id="image-upload"
-          type="file"
-          style={{ display: "none" }}
-        />
-        <label htmlFor="image-upload">
-          <Button as="span" width="100%" py="10px" color="white" bg="gray.700">
-            イメージを投稿
-          </Button>
-        </label>
       </Box>
 
       <Box width="80%">
         <FormControl width="100%">
-          <Label color="white">タグ</Label>
-          <Select placeholder="タグ">
-            <option value={10}>創作</option>
-            <option value={20}>日常</option>
-            <option value={30}>悪夢</option>
-            <option value={40}>怪談</option>
-          </Select>
+          {/* <Select
+            placeholder="タグ"
+            value={tags}
+            onChange={(value: string) => setSelectedTag(value)} // 修正
+          >
+            <Option value="創作">創作</Option>
+            <Option value="日常">日常</Option>
+            <Option value="悪夢">悪夢</Option>
+            <Option value="怪談">怪談</Option>
+          </Select> */}
+          <Input
+            placeholder="タグ"
+            width="100%"
+            bg="gray.700"
+            color="white"
+            value={tags}
+            onChange={(e) => setSelectedTag(e.target.value)} // 修正
+          />
         </FormControl>
       </Box>
 
+      {error && (
+        <Text color="red.500" fontSize="sm">
+          投稿に失敗しました: {error}
+        </Text>
+      )}
+
       <Box width="100%" display="flex" justifyContent="center">
-        <Button width="80%" py="10px" color="white" bg="#680c62">
-          投稿
+        <Button
+          width="80%"
+          py="10px"
+          color="white"
+          bg="#680c62"
+          onClick={handleSubmit}
+          isDisabled={isLoading}
+        >
+          {isLoading ? "投稿中..." : "投稿"}
         </Button>
       </Box>
     </Box>
