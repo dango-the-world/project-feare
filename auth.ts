@@ -3,6 +3,13 @@ import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 // import GoogleProvider from "next-auth/providers/google";
 
+type argsType = {
+  userId: string | null | undefined;
+  userName: string | null | undefined;
+  userEmail: string | null | undefined;
+  userImage: string | null | undefined;
+};
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     // GoogleProvider({
@@ -16,40 +23,49 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
-  // callbacks: {
-  //   async jwt({ token, account, profile }) {
-  //     if (account) {
-  //       token.provider = account.provider;
-  //       token.id = account.providerAccountId;
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.provider = account.provider;
+        token.id = account.providerAccountId;
 
-  //       const userId = account.providerAccountId;
-  //       const userName = profile?.name as string;
-  //       const userEmail = profile?.email as string;
-  //       const userImage = profile?.avatar_url || "";
+        const args: argsType = {
+          userId: account.providerAccountId,
+          userName: profile?.name,
+          userEmail: profile?.email,
+          userImage: profile?.avatar_url,
+        };
 
-  //       await prisma.user.upsert({
-  //         where: {
-  //           id: userId,
-  //         },
-  //         update: {
-  //           username: userName,
-  //           email: userEmail,
-  //           iconUrl: userImage,
-  //         },
-  //         create: {
-  //           id: userId,
-  //           username: userName,
-  //           email: userEmail,
-  //           iconUrl: userImage,
-  //         },
-  //       });
-  //     }
-  //     return token;
-  //   },
+        console.log(args);
 
-  // async session({ session, token }: any) {
-  //   session.user.provider = token.provider;
-  //   session.user.id = token.id;
-  //   return session;
-  // },
+        if (args === null || undefined) {
+          return token;
+        }
+
+        await prisma.user.upsert({
+          where: {
+            id: args.userId || "",
+          },
+          update: {
+            username: args.userName || "",
+            email: args.userEmail || "",
+            iconUrl: args.userImage || "",
+          },
+          create: {
+            id: args.userId || "",
+            username: args.userName || "",
+            email: args.userEmail || "",
+            iconUrl: args.userImage || "",
+          },
+        });
+      }
+      return token;
+    },
+
+    async session({ session, token }: any) {
+      session.user.provider = token.provider;
+      session.user.id = token.id;
+      return session;
+    },
+  },
 });
