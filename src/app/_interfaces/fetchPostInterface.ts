@@ -8,4 +8,5 @@ export interface FetchPost {
     username: string;
     iconUrl: string | null;
   };
+  scaryCount: number;
 }

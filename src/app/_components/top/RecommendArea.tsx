@@ -27,6 +27,7 @@ export const RecommendArea = () => {
                 postDate={index.createdAt}
                 tag={index.tags}
                 title={index.title}
+                scary={index.scaryCount}
               />
             </Link>
           ))}

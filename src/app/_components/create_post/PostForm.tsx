@@ -5,16 +5,16 @@ import {
   Box,
   Button,
   FormControl,
-  Select,
   Input,
   Textarea,
   Text,
-  Option,
 } from "@yamada-ui/react";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const PostForm = () => {
   const { createPost, isLoading, error } = useCreatePost();
+  const router = useRouter(); // 追加
 
   // フォームの状態
   const [title, setTitle] = useState("");
@@ -30,9 +30,7 @@ export const PostForm = () => {
     try {
       await createPost({ title, content, tags });
       alert("投稿が完了しました！");
-      setTitle("");
-      setContent("");
-      setSelectedTag("");
+      router.push("/"); // 成功したらルートに移動
     } catch (err) {
       alert("投稿に失敗しました。");
     }
@@ -79,23 +77,13 @@ export const PostForm = () => {
 
       <Box width="80%">
         <FormControl width="100%">
-          {/* <Select
-            placeholder="タグ"
-            value={tags}
-            onChange={(value: string) => setSelectedTag(value)} // 修正
-          >
-            <Option value="創作">創作</Option>
-            <Option value="日常">日常</Option>
-            <Option value="悪夢">悪夢</Option>
-            <Option value="怪談">怪談</Option>
-          </Select> */}
           <Input
             placeholder="タグ"
             width="100%"
             bg="gray.700"
             color="white"
             value={tags}
-            onChange={(e) => setSelectedTag(e.target.value)} // 修正
+            onChange={(e) => setSelectedTag(e.target.value)}
           />
         </FormControl>
       </Box>

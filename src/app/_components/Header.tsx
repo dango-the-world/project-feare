@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Box, Button, Input, Text } from "@yamada-ui/react";
+import { Flex, Box, Button, Input, Text, Avatar } from "@yamada-ui/react";
 import React from "react";
 import Link from "next/link";
 
@@ -19,7 +19,7 @@ export const Header = () => {
           </Text>
         </Link>
         <Input placeholder="検索" width="400px" />
-        <Flex align="center" gap={5}>
+        {/* <Flex align="center" gap={5}>
           <Link href="/login">
             <Button variant="ghost" height="40px" px={4} color={"#fff"}>
               ログイン
@@ -28,7 +28,8 @@ export const Header = () => {
           <Button height="40px" px={4} colorScheme="blue">
             新規登録
           </Button>
-        </Flex>
+        </Flex> */}
+        <Avatar />
       </Flex>
     </Box>
   );
