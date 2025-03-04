@@ -4,6 +4,7 @@ import useFetchDetail from "@/app/_hooks/useFetchDetail";
 import { Avatar, Box, Text } from "@yamada-ui/react";
 import { useParams } from "next/navigation";
 import React from "react";
+import { RiGhost2Line } from "react-icons/ri";
 
 export const DetailDisplay = () => {
   const params = useParams();
@@ -26,6 +27,11 @@ export const DetailDisplay = () => {
 
           <Box margin={"40px 0"}>
             <Text>{index.content}</Text>
+          </Box>
+
+          <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+            <RiGhost2Line size={32} />
+            <Text>{index.scaryCount}</Text>
           </Box>
         </Box>
       ))}
