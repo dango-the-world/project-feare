@@ -11,7 +11,9 @@
   "dependencies": {
     "@mui/material-nextjs": "^6.1.9",
     "@prisma/client": "^6.2.1",
+    "@supabase/supabase-js": "^2.49.1",
     "@yamada-ui/react": "^1.7.4",
+    "bcryptjs": "^3.0.2",
     "next": "15.0.3",
     "prisma": "^6.2.1",
     "react": "^18.3.1",
