@@ -1,9 +1,12 @@
-"use client";
-
 import { Box, Button } from "@yamada-ui/react";
-import { signIn } from "next-auth/react";
 
-export const SignupCard = () => {
+import { auth, signOut } from "../../../../auth";
+import { SignInButton, SignOutButton } from "./AuthButton";
+
+export const SignupCard = async () => {
+  const session = await auth();
+  if (!session?.user) return <SignInButton />;
+
   return (
     <Box
       display={"flex"}
@@ -18,7 +21,13 @@ export const SignupCard = () => {
       borderRadius={"10px"}
     >
       {/* <Button text="Googleでログイン" onClick={() => signIn("google")} /> */}
-      <Button text="Githubでログイン" onClick={() => signIn("github")} />
+
+      {session && (
+        <>
+          <p>{session.user.email}</p>
+          <SignOutButton />
+        </>
+      )}
     </Box>
   );
 };

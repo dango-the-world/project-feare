@@ -16,41 +16,40 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async jwt({ token, account, profile }) {
-      if (account) {
-        token.provider = account.provider;
-        token.id = account.providerAccountId;
+  // callbacks: {
+  //   async jwt({ token, account, profile }) {
+  //     if (account) {
+  //       token.provider = account.provider;
+  //       token.id = account.providerAccountId;
 
-        const userId = account.providerAccountId;
-        const userName = profile?.name as string;
-        const userEmail = profile?.email as string;
-        const userImage = profile?.avatar_url || "";
+  //       const userId = account.providerAccountId;
+  //       const userName = profile?.name as string;
+  //       const userEmail = profile?.email as string;
+  //       const userImage = profile?.avatar_url || "";
 
-        await prisma.user.upsert({
-          where: {
-            id: userId,
-          },
-          update: {
-            username: userName,
-            email: userEmail,
-            iconUrl: userImage,
-          },
-          create: {
-            id: userId,
-            username: userName,
-            email: userEmail,
-            iconUrl: userImage,
-          },
-        });
-      }
-      return token;
-    },
+  //       await prisma.user.upsert({
+  //         where: {
+  //           id: userId,
+  //         },
+  //         update: {
+  //           username: userName,
+  //           email: userEmail,
+  //           iconUrl: userImage,
+  //         },
+  //         create: {
+  //           id: userId,
+  //           username: userName,
+  //           email: userEmail,
+  //           iconUrl: userImage,
+  //         },
+  //       });
+  //     }
+  //     return token;
+  //   },
 
-    async session({ session, token }: any) {
-      session.user.provider = token.provider;
-      session.user.id = token.id;
-      return session;
-    },
-  },
+  // async session({ session, token }: any) {
+  //   session.user.provider = token.provider;
+  //   session.user.id = token.id;
+  //   return session;
+  // },
 });
