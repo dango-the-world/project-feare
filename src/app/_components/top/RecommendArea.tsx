@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { PostCard } from "./PostCard";
+import { PostCard } from "../PostCard";
 import useFetchPost from "@/app/_hooks/useFetchPost";
 import Link from "next/link";
 import { Box } from "@yamada-ui/react";

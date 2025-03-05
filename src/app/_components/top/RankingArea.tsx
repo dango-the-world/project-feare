@@ -4,7 +4,7 @@ import React from "react";
 import useFetchPopular from "@/app/_hooks/useFetchPopular";
 import Link from "next/link";
 import { Box } from "@yamada-ui/react";
-import { PostCard } from "./PostCard";
+import { PostCard } from "../PostCard";
 
 export const RankingArea = () => {
   const { popularPost } = useFetchPopular();

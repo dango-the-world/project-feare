@@ -9,9 +9,21 @@ import {
 } from "@yamada-ui/react";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { useKeyword } from "@/app/_hooks/useKeyword";
 
 export const SearchButton = () => {
   const { open, onOpen, onClose } = useDisclosure();
+  const { keyword, setKeyword } = useKeyword();
+
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      router.push(`/search?query=${encodeURIComponent(keyword)}`);
+    }
+  };
 
   return (
     <Box>
@@ -33,15 +45,18 @@ export const SearchButton = () => {
         bgColor={"#111827"}
       >
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <Input
-          padding={"10px"}
-          bgColor={"#111827"}
-          placeholder="ワードで検索"
-          borderColor="#680c62"
-          sx={{
-            _placeholder: { color: "#555" },
-          }}
-        />
+        <Box as="form" onSubmit={handleSearch}>
+          <Input
+            bgColor={"#111827"}
+            placeholder="ワードで検索"
+            borderColor="#680c62"
+            sx={{
+              _placeholder: { color: "#555" },
+            }}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </Box>
       </Modal>
     </Box>
   );
