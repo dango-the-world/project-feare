@@ -1,7 +1,8 @@
-import { Flex, Box, Button, Input, Text, Avatar } from "@yamada-ui/react";
+import { Flex, Box, Button, Image, Avatar } from "@yamada-ui/react";
 import React from "react";
 import Link from "next/link";
 import { auth } from "../../../auth";
+import { SearchButton } from "./SearchButton";
 
 export const Header = async () => {
   const session = await auth();
@@ -15,26 +16,26 @@ export const Header = async () => {
     >
       <Flex justify="space-around" align="center">
         <Link href="/" style={{ textDecoration: "none" }}>
-          <Text fontSize="2xl" fontWeight="bold" color="white">
-            FEARE
-          </Text>
+          <Image w={"100px"} alt="FEARE" src="feare_logo_white.svg" />
         </Link>
-        <Input placeholder="検索" width="400px" />
 
-        {!session?.user ? (
-          <Flex align="center" gap={5}>
-            <Link href="/login">
-              <Button variant="ghost" height="40px" px={4} color={"#fff"}>
-                ログイン
+        <Flex align="center" gap={5}>
+          <SearchButton />
+          {!session?.user ? (
+            <Box>
+              <Link href="/login">
+                <Button variant="ghost" height="40px" px={4} color={"#fff"}>
+                  ログイン
+                </Button>
+              </Link>
+              <Button height="40px" px={4} colorScheme="blue">
+                新規登録
               </Button>
-            </Link>
-            <Button height="40px" px={4} colorScheme="blue">
-              新規登録
-            </Button>
-          </Flex>
-        ) : (
-          <Avatar src={session?.user.image ?? undefined} />
-        )}
+            </Box>
+          ) : (
+            <Avatar src={session?.user.image ?? undefined} />
+          )}
+        </Flex>
       </Flex>
     </Box>
   );
