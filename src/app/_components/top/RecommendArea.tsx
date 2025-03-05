@@ -28,6 +28,7 @@ export const RecommendArea = () => {
                 tag={index.tags}
                 title={index.title}
                 scary={index.scaryCount}
+                iconUrl={index.user.iconUrl}
               />
             </Link>
           ))}

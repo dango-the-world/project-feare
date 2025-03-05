@@ -12,6 +12,7 @@ type Props = {
   tag: string;
   title: string;
   scary: number;
+  iconUrl: string | null;
 };
 
 export const PostCard = (props: Props) => {
@@ -61,7 +62,7 @@ export const PostCard = (props: Props) => {
       </Box>
       <Box display={"flex"} justifyContent={"space-between"}>
         <Box display={"flex"} gap={"10px"} alignItems={"center"}>
-          <Avatar size={"sm"} />
+          <Avatar size={"sm"} src={props.iconUrl || undefined} />
           <Text>{props.user}</Text>
         </Box>
         <Box display={"flex"} gap={"10px"} alignItems={"center"}>

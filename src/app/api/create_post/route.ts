@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { auth } from "../../../../auth";
 
 export async function POST(req: Request) {
+  const session = await auth();
+
   try {
     const { title, content, tags } = await req.json();
     if (!title || !content) {
@@ -11,8 +14,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 固定の userId を使用
-    const userId = "1";
+    const userId = session?.user?.id || "";
 
     const newPost = await prisma.post.create({
       data: {
@@ -27,10 +29,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newPost, { status: 201 });
-  } catch (error) {
-    console.error("Error creating post:", error.message);
+  } catch (error: unknown) {
+    console.error("Error creating post:", (error as Error).message);
     return NextResponse.json(
-      { error: "Failed to create post", details: error.message },
+      { error: "Failed to create post", details: (error as Error).message },
       { status: 500 }
     );
   }
