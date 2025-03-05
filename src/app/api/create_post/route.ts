@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     // 固定の userId を使用
-    const userId = "bfbf279f-474d-413d-b788-d6275e7afeb7";
+    const userId = "1";
 
     const newPost = await prisma.post.create({
       data: {

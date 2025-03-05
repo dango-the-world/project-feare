@@ -13,11 +13,9 @@ model User {
   id          String   @id @default(uuid())
   username    String   @unique
   email       String   @unique
-  passwordHash String
   iconUrl     String?  // オプショナルなフィールド（@default は不要）
   createdAt   DateTime @default(now())
   posts       Post[]
-  comments    Comment[]
   scary       Scary[]
 }
 
@@ -32,18 +30,7 @@ model Post {
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
   user           User       @relation(fields: [userId], references: [id])
-  comments       Comment[]
-  scary    Scary[]
-}
-
-model Comment {
-  id        String   @id @default(uuid())
-  postId    String
-  userId    String
-  content   String
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  scary          Scary[]
 }
 
 model Scary {
