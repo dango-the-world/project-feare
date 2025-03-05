@@ -1,7 +1,7 @@
 import { Flex, Box, Button, Image, Avatar } from "@yamada-ui/react";
 import React from "react";
 import Link from "next/link";
-import { auth } from "../../../auth";
+import { auth } from "../../../../auth";
 import { SearchButton } from "./SearchButton";
 
 export const Header = async () => {
