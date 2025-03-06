@@ -5,12 +5,25 @@ import { Box } from "@yamada-ui/react";
 import React from "react";
 import { PostCard } from "../PostCard";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"; // App Router 用に 'next/navigation' からインポートします
+import { useSearchParams } from "next/navigation";
+import { useTagSearch } from "@/app/_hooks/useTagSearch";
+import { FetchPost } from "@/app/_interfaces/fetchPostInterface";
 
 export const ResultContent = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get("query") || ""; // App Router では 'searchParams.get' を使用してクエリパラメータを取得します
-  const { results } = useSearchResults(query);
+  const query = searchParams.get("query") || "";
+  const tag = searchParams.get("tag") || "";
+
+  const { results: keywordResults } = useSearchResults(query);
+  const { results: tagResults } = useTagSearch(tag);
+
+  let results: FetchPost[] = [];
+
+  if (query) {
+    results = keywordResults;
+  } else if (tag) {
+    results = tagResults;
+  }
 
   if (!results.length) return <p>検索結果がありません</p>;
 
