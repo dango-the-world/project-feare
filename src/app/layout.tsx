@@ -1,5 +1,5 @@
 import { UIProvider } from "@yamada-ui/react";
-import { Header } from "./_components/Header";
+import { Header } from "./_components/header/Header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
