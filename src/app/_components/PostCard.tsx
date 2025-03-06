@@ -4,6 +4,7 @@ import { Avatar, Box, Text } from "@yamada-ui/react";
 import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
 import React, { useEffect, useState, useCallback } from "react";
 import { useScary } from "@/app/_hooks/useScary";
+import { useRouter } from "next/navigation";
 
 type Props = {
   id: string;
@@ -20,6 +21,7 @@ export const PostCard = (props: Props) => {
   const [scary, setScary] = useState(props.scary);
   const [isScary, setIsScary] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const checkStatus = useCallback(async () => {
     const status = await checkScaryStatus(props.id);
@@ -30,13 +32,17 @@ export const PostCard = (props: Props) => {
     checkStatus();
   }, [checkStatus]);
 
+  const handleTagClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (props.tag) {
+      router.push(`/search?tag=${encodeURIComponent(props.tag)}`);
+    }
+  };
+
   const handleIconClick = async (event: React.MouseEvent) => {
     event.preventDefault();
-
-    if (isLoading) return; // Prevent multiple clicks while processing
-
+    if (isLoading) return;
     setIsLoading(true);
-
     try {
       const result = await toggleScary(props.id);
       setScary(result.scaryCount);
@@ -67,7 +73,10 @@ export const PostCard = (props: Props) => {
       }}
     >
       <Box display={"flex"} justifyContent={"space-between"}>
-        <Text>#{props.tag}</Text>
+        <Box onClick={handleTagClick}>
+          <Text>#{props.tag}</Text>
+        </Box>
+
         <Text>{props.postDate}</Text>
       </Box>
       <Box>
