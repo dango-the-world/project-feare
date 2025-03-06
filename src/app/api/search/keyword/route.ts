@@ -1,29 +1,34 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { query } = req.query;
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const query = searchParams.get("query");
 
-  if (!query || typeof query !== "string") {
-    return res
-      .status(400)
-      .json({ message: "検索キーワードを提供してください" });
+  if (!query) {
+    return NextResponse.json(
+      { message: "検索キーワードを提供してください" },
+      { status: 400 }
+    );
   }
 
   try {
     const results = await prisma.post.findMany({
+      include: {
+        user: true, // 投稿したユーザー情報を含む
+      },
       where: {
         title: {
-          contains: query,
+          contains: query || undefined,
           mode: "insensitive",
         },
       },
     });
-    res.status(200).json(results);
+    return NextResponse.json(results, { status: 200 });
   } catch (error) {
-    res.status(500).json({ message: "検索中にエラーが発生しました", error });
+    return NextResponse.json(
+      { message: "検索中にエラーが発生しました", error },
+      { status: 500 }
+    );
   }
 }
