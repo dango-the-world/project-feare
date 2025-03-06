@@ -4,7 +4,7 @@ export function useScary() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const addScary = async (postId: string) => {
+  const toggleScary = async (postId: string) => {
     setIsLoading(true);
     setError(null);
 
@@ -12,16 +12,20 @@ export function useScary() {
       const res = await fetch(`/api/post/${postId}/scary`, {
         method: "PATCH",
       });
-      console.log("API Response:", res);
 
       if (!res.ok) {
         const errorData = await res.json();
-        console.error("API Error:", errorData);
-        throw new Error(errorData.error || "Failed to update scary count");
+        if (res.status === 401) {
+          throw new Error("ログインが必要です");
+        }
+        throw new Error(errorData.error || "Failed to update scary status");
       }
 
-      const updatedPost = await res.json();
-      return updatedPost.scaryCount;
+      const data = await res.json();
+      return {
+        scaryCount: data.scaryCount,
+        isScary: data.isScary,
+      };
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       throw err;
@@ -30,5 +34,28 @@ export function useScary() {
     }
   };
 
-  return { addScary, isLoading, error };
+  const checkScaryStatus = async (postId: string) => {
+    try {
+      const res = await fetch(`/api/post/${postId}/scary`, {
+        method: "GET",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to check scary status");
+      }
+
+      const data = await res.json();
+      return data.isScary;
+    } catch (err) {
+      console.error("Error checking scary status:", err);
+      return false;
+    }
+  };
+
+  return {
+    toggleScary,
+    checkScaryStatus,
+    isLoading,
+    error,
+  };
 }

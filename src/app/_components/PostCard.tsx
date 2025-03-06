@@ -2,7 +2,7 @@
 
 import { Avatar, Box, Text } from "@yamada-ui/react";
 import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useScary } from "@/app/_hooks/useScary";
 
 type Props = {
@@ -16,23 +16,38 @@ type Props = {
 };
 
 export const PostCard = (props: Props) => {
-  const { addScary } = useScary();
+  const { toggleScary, checkScaryStatus } = useScary();
   const [scary, setScary] = useState(props.scary);
-  const [isClicked, setIsClicked] = useState(false);
+  const [isScary, setIsScary] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const checkStatus = useCallback(async () => {
+    const status = await checkScaryStatus(props.id);
+    setIsScary(status);
+  }, [props.id, checkScaryStatus]);
+
+  useEffect(() => {
+    checkStatus();
+  }, [checkStatus]);
 
   const handleIconClick = async (event: React.MouseEvent) => {
     event.preventDefault();
-    if (isClicked) return; // 連続クリック防止
+
+    if (isLoading) return; // Prevent multiple clicks while processing
+
+    setIsLoading(true);
 
     try {
-      const updatedScary = await addScary(props.id);
-      setScary(updatedScary);
-      setIsClicked(true); // アイコンを切り替え
+      const result = await toggleScary(props.id);
+      setScary(result.scaryCount);
+      setIsScary(result.isScary);
     } catch (err) {
       console.error(
-        "Failed to update scary count:",
+        "Failed to update scary status:",
         err instanceof Error ? err.message : err
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,8 +81,14 @@ export const PostCard = (props: Props) => {
           <Text>{props.user}</Text>
         </Box>
         <Box display={"flex"} gap={"10px"} alignItems={"center"}>
-          <Box onClick={handleIconClick} style={{ cursor: "pointer" }}>
-            {isClicked ? (
+          <Box
+            onClick={handleIconClick}
+            style={{
+              cursor: "pointer",
+              opacity: isLoading ? 0.5 : 1,
+            }}
+          >
+            {isScary ? (
               <RiGhost2Fill size={32} color="purple" />
             ) : (
               <RiGhost2Line size={32} />
