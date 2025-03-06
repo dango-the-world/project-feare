@@ -81,8 +81,8 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
+    const session = await auth();
+    const userId = session?.user?.id;
     const postId = params.id;
 
     if (!userId) {

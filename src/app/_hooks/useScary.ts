@@ -34,13 +34,9 @@ export function useScary() {
     }
   };
 
-  // Function to check if a user has marked a post as scary
-  // We pass userId from the server component
-  const checkScaryStatus = async (postId: string, userId: string | null) => {
-    if (!userId) return false;
-
+  const checkScaryStatus = async (postId: string) => {
     try {
-      const res = await fetch(`/api/post/${postId}/scary?userId=${userId}`, {
+      const res = await fetch(`/api/post/${postId}/scary`, {
         method: "GET",
       });
 
