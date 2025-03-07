@@ -1,11 +1,13 @@
+"use client";
+
 import { Flex, Box, Button, Image, Avatar } from "@yamada-ui/react";
 import React from "react";
 import Link from "next/link";
-import { auth } from "../../../../auth";
 import { SearchButton } from "./SearchButton";
+import { useHeaderSession } from "@/app/_hooks/useHeaderSession";
 
-export const Header = async () => {
-  const session = await auth();
+export const Header = () => {
+  const { session } = useHeaderSession();
 
   return (
     <Box
