@@ -25,14 +25,11 @@ export const Header = () => {
           <SearchButton />
           {!session?.user ? (
             <Box>
-              <Link href="/login">
-                <Button variant="ghost" height="40px" px={4} color={"#fff"}>
-                  ログイン
+              <Link href="/auth/signup">
+                <Button height="40px" px={4} colorScheme="blue">
+                  サインアップ
                 </Button>
               </Link>
-              <Button height="40px" px={4} colorScheme="blue">
-                新規登録
-              </Button>
             </Box>
           ) : (
             <Avatar src={session?.user.image ?? undefined} />

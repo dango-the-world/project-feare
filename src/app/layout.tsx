@@ -1,4 +1,3 @@
-import { Header } from "./_components/header/Header";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { MainLayout } from "./_components/MainLayout";

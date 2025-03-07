@@ -1,30 +1,35 @@
-import { Box, Button } from "@yamada-ui/react";
+import { Box, Image } from "@yamada-ui/react";
 
-import { auth, signOut } from "../../../../auth";
+import { auth } from "../../../../auth";
 import { SignInButton, SignOutButton } from "./AuthButton";
+import SignupSuccess from "./SignupSuccess";
 
 export const SignupCard = async () => {
   const session = await auth();
-  if (!session?.user) return <SignInButton />;
+  if (!session?.user)
+    return (
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        gap={"20px"}
+        w={"60vw"}
+        backgroundColor={"#1F2937"}
+        border={"3px solid #680c62"}
+        borderRadius={"10px"}
+      >
+        <Image alt="" src="/feare_main_image.png" />
+        <Box w={"100%"}>
+          <SignInButton />
+        </Box>
+      </Box>
+    );
 
   return (
-    <Box
-      display={"flex"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      flexDirection={"column"}
-      gap={"20px"}
-      width={"500px"}
-      height={"500px"}
-      backgroundColor={"#1F2937"}
-      border={"3px solid #680c62"}
-      borderRadius={"10px"}
-    >
-      {/* <Button text="Googleでログイン" onClick={() => signIn("google")} /> */}
-
+    <Box>
       {session && (
         <>
-          <p>{session.user.email}</p>
+          <SignupSuccess />
           <SignOutButton />
         </>
       )}
