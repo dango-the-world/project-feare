@@ -4,7 +4,7 @@ import useFetchDetail from "@/app/_hooks/useFetchDetail";
 
 export const usePostDetail = (postId: string) => {
   const { toggleScary, checkScaryStatus } = useScary();
-  const { postDetail, refetch } = useFetchDetail(postId);
+  const { postDetail, refetch, loading } = useFetchDetail(postId);
 
   const [scary, setScary] = useState(0);
   const [isScary, setIsScary] = useState(false);
@@ -44,5 +44,5 @@ export const usePostDetail = (postId: string) => {
     }
   };
 
-  return { post, scary, isScary, isLoading, handleIconClick };
+  return { post, scary, isScary, isLoading, handleIconClick, loading };
 };

@@ -4,6 +4,7 @@ import { FetchPost } from "../_interfaces/fetchPostInterface";
 export const useSearchResults = (query: string | undefined, page: number) => {
   const [results, setResults] = useState<FetchPost[]>([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [keywordLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (query) {
@@ -14,9 +15,10 @@ export const useSearchResults = (query: string | undefined, page: number) => {
           setResults(data.results);
           setTotalPages(data.totalPages);
         })
-        .catch((err) => console.error("Error fetching search results:", err));
+        .catch((err) => console.error("Error fetching search results:", err))
+        .finally(() => setLoading(false));
     }
   }, [query, page]);
 
-  return { results, totalPages };
+  return { results, totalPages, keywordLoading };
 };

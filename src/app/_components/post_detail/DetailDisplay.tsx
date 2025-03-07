@@ -1,7 +1,7 @@
 "use client";
 
 import { usePostDetail } from "@/app/_hooks/usePostDetail";
-import { Avatar, Box, Text } from "@yamada-ui/react";
+import { Avatar, Box, Loading, Text } from "@yamada-ui/react";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
@@ -9,7 +9,7 @@ import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
 export const DetailDisplay = () => {
   const params = useParams();
   const postId = params.id as string;
-  const { post, scary, isScary, isLoading, handleIconClick } =
+  const { post, scary, isScary, isLoading, handleIconClick, loading } =
     usePostDetail(postId);
   const router = useRouter();
 
@@ -19,6 +19,19 @@ export const DetailDisplay = () => {
       router.push(`/search?tag=${encodeURIComponent(tag)}`);
     }
   };
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        paddingTop={"50px"}
+      >
+        <Loading variant="dots" fontSize="6xl" />
+      </Box>
+    );
+  }
 
   if (!post) return <Text>投稿が見つかりません。</Text>;
 
