@@ -23,29 +23,27 @@ export const RecommendArea = () => {
 
   return (
     <>
-      <Box p={"20px"}>
-        <Box>
-          {newPost.map((index) => (
-            <Link
-              href={`/post_detail/${index.id}`}
-              key={index.id}
-              style={{
-                textDecoration: "none",
-                color: "#eeeeee",
-              }}
-            >
-              <PostCard
-                id={index.id}
-                user={index.user.username}
-                postDate={index.createdAt}
-                tag={index.tags}
-                title={index.title}
-                scary={index.scaryCount}
-                iconUrl={index.user.iconUrl}
-              />
-            </Link>
-          ))}
-        </Box>
+      <Box>
+        {newPost.map((index) => (
+          <Link
+            href={`/post_detail/${index.id}`}
+            key={index.id}
+            style={{
+              textDecoration: "none",
+              color: "#eeeeee",
+            }}
+          >
+            <PostCard
+              id={index.id}
+              user={index.user.username}
+              postDate={index.createdAt}
+              tag={index.tags}
+              title={index.title}
+              scary={index.scaryCount}
+              iconUrl={index.user.iconUrl}
+            />
+          </Link>
+        ))}
       </Box>
     </>
   );

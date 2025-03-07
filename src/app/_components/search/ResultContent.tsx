@@ -1,7 +1,13 @@
 "use client";
 
 import { useSearchResults } from "@/app/_hooks/useFetchResult";
-import { Box, Button, HStack, Text } from "@yamada-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Text,
+  useBreakpointValue,
+} from "@yamada-ui/react";
 import React, { useState } from "react";
 import { PostCard } from "../PostCard";
 import Link from "next/link";
@@ -26,8 +32,10 @@ export const ResultContent = () => {
     results = tagResults;
   }
 
+  const boxWidth = useBreakpointValue({ base: "1000px", sm: "90%" });
+
   return (
-    <Box width={"1000px"} margin={"100px auto"}>
+    <Box width={boxWidth} margin={"100px auto"}>
       <Text fontSize={"1.4rem"}>検索結果: {results.length}件</Text>
       {!results.length ? (
         <p>検索結果がありません</p>

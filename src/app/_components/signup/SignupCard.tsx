@@ -13,7 +13,7 @@ export const SignupCard = async () => {
         justifyContent={"space-between"}
         alignItems={"center"}
         gap={"20px"}
-        w={"60vw"}
+        w={"100%"}
         backgroundColor={"#1F2937"}
         border={"3px solid #680c62"}
         borderRadius={"10px"}

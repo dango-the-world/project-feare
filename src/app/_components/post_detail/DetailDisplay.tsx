@@ -23,7 +23,7 @@ export const DetailDisplay = () => {
   if (!post) return <Text>投稿が見つかりません。</Text>;
 
   return (
-    <Box padding={"40px 0"}>
+    <Box padding={"20px"} backgroundColor={"#1F2937"} borderRadius={"20px"}>
       <Box
         transition={"0.3s"}
         _hover={{ color: "gray.400", cursor: "pointer" }}
