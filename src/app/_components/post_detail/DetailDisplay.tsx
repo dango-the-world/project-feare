@@ -1,40 +1,65 @@
 "use client";
 
-import useFetchDetail from "@/app/_hooks/useFetchDetail";
+import { usePostDetail } from "@/app/_hooks/usePostDetail";
 import { Avatar, Box, Text } from "@yamada-ui/react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
-import { RiGhost2Line } from "react-icons/ri";
+import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
 
 export const DetailDisplay = () => {
   const params = useParams();
   const postId = params.id as string;
-  const { postDetail } = useFetchDetail(postId);
+  const { post, scary, isScary, isLoading, handleIconClick } =
+    usePostDetail(postId);
+  const router = useRouter();
+
+  const handleTagClick = (e: React.MouseEvent, tag: string) => {
+    e.preventDefault();
+    if (tag) {
+      router.push(`/search?tag=${encodeURIComponent(tag)}`);
+    }
+  };
+
+  if (!post) return <Text>投稿が見つかりません。</Text>;
 
   return (
-    <Box>
-      {postDetail.map((index) => (
-        <Box padding={"40px 0"} key={index.id}>
-          <Text>#{index.tags}</Text>
-          <Text lineHeight={"4rem"} fontSize={"2rem"} fontWeight={"bold"}>
-            {index.title}
-          </Text>
-          {/* <Box></Box> */}
-          <Box display={"flex"} gap={"10px"} alignItems={"center"}>
-            <Avatar size={"sm"} />
-            <Text>{index.user.username}</Text>
-          </Box>
+    <Box padding={"40px 0"}>
+      <Box
+        transition={"0.3s"}
+        _hover={{ color: "gray.400", cursor: "pointer" }}
+        onClick={(e) => handleTagClick(e, post.tags)}
+      >
+        <Text>#{post.tags}</Text>
+      </Box>
+      <Text lineHeight={"4rem"} fontSize={"2rem"} fontWeight={"bold"}>
+        {post.title}
+      </Text>
+      <Box display={"flex"} gap={"10px"} alignItems={"center"}>
+        <Avatar size={"sm"} src={post.user.iconUrl || undefined} />
+        <Text>{post.user.username}</Text>
+      </Box>
 
-          <Box margin={"40px 0"}>
-            <Text>{index.content}</Text>
-          </Box>
+      <Box margin={"40px 0"}>
+        <Text>{post.content}</Text>
+      </Box>
 
-          <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-            <RiGhost2Line size={32} />
-            <Text>{index.scaryCount}</Text>
-          </Box>
-        </Box>
-      ))}
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        gap={"10px"}
+        onClick={handleIconClick}
+        style={{
+          cursor: isLoading ? "not-allowed" : "pointer",
+          opacity: isLoading ? 0.5 : 1,
+        }}
+      >
+        {isScary ? (
+          <RiGhost2Fill size={32} color="purple" />
+        ) : (
+          <RiGhost2Line size={32} />
+        )}
+        <Text>{scary}</Text>
+      </Box>
     </Box>
   );
 };
