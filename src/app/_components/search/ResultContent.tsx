@@ -1,8 +1,8 @@
 "use client";
 
 import { useSearchResults } from "@/app/_hooks/useFetchResult";
-import { Box } from "@yamada-ui/react";
-import React from "react";
+import { Box, Button, HStack, Text } from "@yamada-ui/react";
+import React, { useState } from "react";
 import { PostCard } from "../PostCard";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -14,7 +14,8 @@ export const ResultContent = () => {
   const query = searchParams.get("query") || "";
   const tag = searchParams.get("tag") || "";
 
-  const { results: keywordResults } = useSearchResults(query);
+  const [page, setPage] = useState(1);
+  const { results: keywordResults, totalPages } = useSearchResults(query, page);
   const { results: tagResults } = useTagSearch(tag);
 
   let results: FetchPost[] = [];
@@ -25,30 +26,51 @@ export const ResultContent = () => {
     results = tagResults;
   }
 
-  if (!results.length) return <p>検索結果がありません</p>;
-
   return (
     <Box width={"1000px"} margin={"100px auto"}>
-      {results.map((index) => (
-        <Link
-          href={`/post_detail/${index.id}`}
-          key={index.id}
-          style={{
-            textDecoration: "none",
-            color: "#eeeeee",
-          }}
-        >
-          <PostCard
-            id={index.id}
-            user={index.user.username}
-            postDate={index.createdAt}
-            tag={index.tags}
-            title={index.title}
-            scary={index.scaryCount}
-            iconUrl={index.user.iconUrl}
-          />
-        </Link>
-      ))}
+      <Text fontSize={"1.4rem"}>検索結果: {results.length}件</Text>
+      {!results.length ? (
+        <p>検索結果がありません</p>
+      ) : (
+        <>
+          {results.map((index) => (
+            <Link
+              href={`/post_detail/${index.id}`}
+              key={index.id}
+              style={{
+                textDecoration: "none",
+                color: "#eeeeee",
+              }}
+            >
+              <PostCard
+                id={index.id}
+                user={index.user.username}
+                postDate={index.createdAt}
+                tag={index.tags}
+                title={index.title}
+                scary={index.scaryCount}
+                iconUrl={index.user.iconUrl}
+              />
+            </Link>
+          ))}
+
+          {/* ページネーションボタン */}
+          <HStack justifyContent="center" mt="4">
+            <Button onClick={() => setPage(page - 1)} isDisabled={page === 1}>
+              前のページ
+            </Button>
+            <Text>
+              {page} / {totalPages}
+            </Text>
+            <Button
+              onClick={() => setPage(page + 1)}
+              isDisabled={page >= totalPages}
+            >
+              次のページ
+            </Button>
+          </HStack>
+        </>
+      )}
     </Box>
   );
 };
