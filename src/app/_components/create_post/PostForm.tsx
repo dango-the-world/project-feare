@@ -8,27 +8,38 @@ import {
   Input,
   Textarea,
   Text,
+  Select,
+  useBreakpointValue,
 } from "@yamada-ui/react";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
+type SelectItem = { label: string; value: string };
+
 export const PostForm = () => {
   const { createPost, isLoading, error } = useCreatePost();
-  const router = useRouter(); // 追加
-
+  const router = useRouter();
   // フォームの状態
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tags, setSelectedTag] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
+  const inputWidth = useBreakpointValue({ base: "80%", sm: "90%" });
+
+  // タグの選択肢
+  const items: SelectItem[] = [
+    { label: "孫悟空", value: "孫悟空" },
+    { label: "ベジータ", value: "ベジータ" },
+    { label: "フリーザ", value: "フリーザ" },
+  ];
 
   const handleSubmit = async () => {
-    if (!title || !content || !tags) {
+    if (!title || !content || !selectedTag) {
       alert("タイトル、本文、タグをすべて入力してください。");
       return;
     }
 
     try {
-      await createPost({ title, content, tags });
+      await createPost({ title, content, tags: selectedTag });
       alert("投稿が完了しました！");
       router.push("/"); // 成功したらルートに移動
     } catch (err) {
@@ -39,7 +50,7 @@ export const PostForm = () => {
   return (
     <Box
       bg="gray.800"
-      border="3px solid #680c62"
+      w={"100%"}
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -52,39 +63,57 @@ export const PostForm = () => {
         怖い話を投稿
       </Text>
 
-      <Box width="80%">
+      <Box width={inputWidth}>
         <Input
           placeholder="タイトル"
-          width="100%"
-          bg="gray.700"
-          color="white"
+          padding={"20px"}
+          bgColor={"#111827"}
+          borderColor="#680c62"
           value={title}
+          sx={{ _placeholder: { color: "#555" } }}
           onChange={(e) => setTitle(e.target.value)}
         />
       </Box>
 
-      <Box width="80%">
+      <Box width={inputWidth}>
         <Textarea
           placeholder="本文"
           minHeight="200px"
-          width="100%"
-          bg="gray.700"
-          color="white"
+          padding={"20px"}
+          bgColor={"#111827"}
+          borderColor="#680c62"
+          sx={{ _placeholder: { color: "#555" } }}
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
       </Box>
 
-      <Box width="80%">
+      <Box width={inputWidth}>
         <FormControl width="100%">
-          <Input
-            placeholder="タグ"
+          <Select
+            placeholder="タグを選択"
             width="100%"
-            bg="gray.700"
-            color="white"
-            value={tags}
-            onChange={(e) => setSelectedTag(e.target.value)}
-          />
+            size="lg"
+            bgColor={"#111827"}
+            borderColor="#680c62"
+            sx={{ _placeholder: { color: "#555" } }}
+            value={selectedTag}
+            items={items}
+            contentProps={{ bg: "#111827" }}
+            optionProps={{
+              transition: "0.3s",
+              bg: "#111827",
+              p: "20px",
+              color: "white",
+              borderColor: "#680c62",
+              _hover: { bg: "#444" },
+              _selected: {
+                bg: "#444", // 選択時の背景色
+                color: "white",
+              },
+            }}
+            onChange={(value: string) => setSelectedTag(value)}
+          ></Select>
         </FormControl>
       </Box>
 
@@ -96,7 +125,7 @@ export const PostForm = () => {
 
       <Box width="100%" display="flex" justifyContent="center">
         <Button
-          width="80%"
+          width={inputWidth}
           py="10px"
           color="white"
           bg="#680c62"
