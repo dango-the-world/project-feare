@@ -43,7 +43,7 @@ export const PostForm = () => {
       alert("投稿が完了しました！");
       router.push("/"); // 成功したらルートに移動
     } catch (err) {
-      alert("投稿に失敗しました。");
+      alert(err);
     }
   };
 
