@@ -78,12 +78,12 @@ export async function PATCH(
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await auth();
     const userId = session?.user?.id;
-    const postId = context.params.id;
+    const postId = params.id;
 
     if (!userId) {
       return NextResponse.json({ isScary: false }, { status: 200 });
