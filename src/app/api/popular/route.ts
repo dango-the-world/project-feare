@@ -7,6 +7,7 @@ export async function GET() {
       include: {
         user: true, // 投稿したユーザー情報を含む
       },
+      take: 5,
       orderBy: {
         scaryCount: "desc", // 作成日時で降順に並べる
       },

@@ -3,10 +3,23 @@ import React from "react";
 import { PostCard } from "../PostCard";
 import useFetchPost from "@/app/_hooks/useFetchPost";
 import Link from "next/link";
-import { Box } from "@yamada-ui/react";
+import { Box, Loading } from "@yamada-ui/react";
 
 export const RecommendArea = () => {
-  const { newPost } = useFetchPost();
+  const { newPost, loading } = useFetchPost();
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        paddingTop={"50px"}
+      >
+        <Loading variant="dots" fontSize="6xl" />
+      </Box>
+    );
+  }
 
   return (
     <>

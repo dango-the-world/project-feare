@@ -1,7 +1,7 @@
 import { Box, Image } from "@yamada-ui/react";
 
 import { auth } from "../../../../auth";
-import { SignInButton, SignOutButton } from "./AuthButton";
+import { SignInButton } from "./AuthButton";
 import SignupSuccess from "./SignupSuccess";
 
 export const SignupCard = async () => {
@@ -19,7 +19,7 @@ export const SignupCard = async () => {
         borderRadius={"10px"}
       >
         <Image alt="" src="/feare_main_image.png" />
-        <Box w={"100%"}>
+        <Box w={"100%"} display={"flex"}>
           <SignInButton />
         </Box>
       </Box>
@@ -30,7 +30,6 @@ export const SignupCard = async () => {
       {session && (
         <>
           <SignupSuccess />
-          <SignOutButton />
         </>
       )}
     </Box>
