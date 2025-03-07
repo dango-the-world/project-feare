@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, useBreakpointValue } from "@yamada-ui/react";
 import React from "react";
 import { SignupCard } from "./SignupCard";
@@ -12,6 +14,7 @@ export const SignupContent = () => {
       alignItems={"center"}
       width={boxWidth}
       height={"90vh"}
+      margin={"auto"}
     >
       <SignupCard />
     </Box>

@@ -1,13 +1,28 @@
 "use client";
 
-import { Flex, Box, Button, Image, Avatar } from "@yamada-ui/react";
+import {
+  Flex,
+  Box,
+  Button,
+  Image,
+  Avatar,
+  ContextMenu,
+  ContextMenuTrigger,
+  MenuList,
+  MenuItem,
+  Modal,
+  useDisclosure,
+  Text,
+} from "@yamada-ui/react";
 import React from "react";
 import Link from "next/link";
 import { SearchButton } from "./SearchButton";
 import { useHeaderSession } from "@/app/_hooks/useHeaderSession";
+import { signOut } from "next-auth/react";
 
 export const Header = () => {
   const { session } = useHeaderSession();
+  const { open, onOpen, onClose } = useDisclosure();
 
   return (
     <Box
@@ -32,7 +47,42 @@ export const Header = () => {
               </Link>
             </Box>
           ) : (
-            <Avatar src={session?.user.image ?? undefined} />
+            <ContextMenu>
+              <ContextMenuTrigger>
+                <Avatar src={session?.user.image ?? undefined} />
+              </ContextMenuTrigger>
+
+              <MenuList contentProps={{ bg: "#c10000" }}>
+                <MenuItem onClick={onOpen}>ログアウト</MenuItem>
+
+                <Modal
+                  open={open}
+                  size={"2xl"}
+                  onClose={onClose}
+                  bg={"#111827"}
+                >
+                  <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    flexDirection={"column"}
+                    gap={"20px"}
+                    p={"40px"}
+                  >
+                    <Text>ログアウトしますか？</Text>
+                    <Box display={"flex"} gap={"20px"}>
+                      <Button>キャンセル</Button>
+                      <Button
+                        colorScheme={"danger"}
+                        onClick={() => signOut({ callbackUrl: "/" })}
+                      >
+                        ログアウト
+                      </Button>
+                    </Box>
+                  </Box>
+                </Modal>
+              </MenuList>
+            </ContextMenu>
           )}
         </Flex>
       </Flex>
