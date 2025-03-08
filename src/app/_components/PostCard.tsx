@@ -5,6 +5,7 @@ import { RiGhost2Fill, RiGhost2Line } from "react-icons/ri";
 import React, { useEffect, useState, useCallback } from "react";
 import { useScary } from "@/app/_hooks/useScary";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 type Props = {
   id: string;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const PostCard = (props: Props) => {
+  const { data: session } = useSession();
   const { toggleScary, checkScaryStatus } = useScary();
   const [scary, setScary] = useState(props.scary);
   const [isScary, setIsScary] = useState(false);
@@ -41,6 +43,11 @@ export const PostCard = (props: Props) => {
 
   const handleIconClick = async (event: React.MouseEvent) => {
     event.preventDefault();
+
+    if (!session) {
+      return;
+    }
+
     if (isLoading) return;
     setIsLoading(true);
     try {

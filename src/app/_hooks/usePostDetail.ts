@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { useScary } from "@/app/_hooks/useScary";
 import useFetchDetail from "@/app/_hooks/useFetchDetail";
+import { useSession } from "next-auth/react";
 
 export const usePostDetail = (postId: string) => {
+  const { data: session } = useSession();
   const { toggleScary, checkScaryStatus } = useScary();
   const { postDetail, refetch, loading } = useFetchDetail(postId);
 
@@ -27,6 +29,11 @@ export const usePostDetail = (postId: string) => {
 
   const handleIconClick = async (event: React.MouseEvent) => {
     event.preventDefault();
+
+    if (!session) {
+      return;
+    }
+
     if (isLoading || !post) return;
     setIsLoading(true);
     try {

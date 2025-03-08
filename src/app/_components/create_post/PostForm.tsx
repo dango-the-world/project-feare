@@ -27,9 +27,13 @@ export const PostForm = () => {
 
   // タグの選択肢
   const items: SelectItem[] = [
-    { label: "孫悟空", value: "孫悟空" },
-    { label: "ベジータ", value: "ベジータ" },
-    { label: "フリーザ", value: "フリーザ" },
+    { label: "創作", value: "創作" },
+    { label: "実話", value: "実話" },
+    { label: "映画", value: "映画" },
+    { label: "夢", value: "夢" },
+    { label: "本", value: "本" },
+    { label: "ゲーム", value: "ゲーム" },
+    { label: "レポート", value: "レポート" },
   ];
 
   const handleSubmit = async () => {
