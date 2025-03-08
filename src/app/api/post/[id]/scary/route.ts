@@ -1,11 +1,47 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../../../auth";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: NextRequest) {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
+
+    // `id` を URL パスから取得
+    const pathSegments = req.nextUrl.pathname.split("/");
+    const postId = pathSegments[pathSegments.length - 2]; // `/api/post/[id]/scary` の [id] を取得
+
+    if (!postId) {
+      return NextResponse.json(
+        { error: "Post ID is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!userId) {
+      return NextResponse.json({ isScary: false }, { status: 200 });
+    }
+
+    const existingScary = await prisma.scary.findUnique({
+      where: {
+        userId_postId: {
+          userId,
+          postId,
+        },
+      },
+    });
+
+    return NextResponse.json({ isScary: !!existingScary }, { status: 200 });
+  } catch (error) {
+    console.error("Error checking scary status:", error);
+    return NextResponse.json(
+      { error: "Failed to check scary status" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(req: NextRequest) {
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -17,7 +53,16 @@ export async function PATCH(
       );
     }
 
-    const postId = params.id;
+    // `id` を URL パスから取得
+    const pathSegments = req.nextUrl.pathname.split("/");
+    const postId = pathSegments[pathSegments.length - 2]; // `/api/post/[id]/scary` の [id] を取得
+
+    if (!postId) {
+      return NextResponse.json(
+        { error: "Post ID is required" },
+        { status: 400 }
+      );
+    }
 
     const existingScary = await prisma.scary.findUnique({
       where: {
@@ -71,38 +116,6 @@ export async function PATCH(
     console.error("Error updating scary status:", error);
     return NextResponse.json(
       { error: "Failed to update scary status" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const session = await auth();
-    const userId = session?.user?.id;
-    const postId = params.id;
-
-    if (!userId) {
-      return NextResponse.json({ isScary: false }, { status: 200 });
-    }
-
-    const existingScary = await prisma.scary.findUnique({
-      where: {
-        userId_postId: {
-          userId,
-          postId,
-        },
-      },
-    });
-
-    return NextResponse.json({ isScary: !!existingScary }, { status: 200 });
-  } catch (error) {
-    console.error("Error checking scary status:", error);
-    return NextResponse.json(
-      { error: "Failed to check scary status" },
       { status: 500 }
     );
   }

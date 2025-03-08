@@ -29,8 +29,12 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newPost, { status: 201 });
-  } catch (error: unknown) {
-    console.error("Error creating post:", (error as Error).message);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error creating post:", error.message);
+    } else {
+      console.error("Error creating post:", error);
+    }
     return NextResponse.json(
       { error: "Failed to create post", details: (error as Error).message },
       { status: 500 }

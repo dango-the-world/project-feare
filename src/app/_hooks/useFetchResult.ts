@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import { FetchPost } from "../_interfaces/fetchPostInterface";
 
-export const useSearchResults = (query: string | string[] | undefined) => {
+export const useSearchResults = (query: string | undefined, page: number) => {
   const [results, setResults] = useState<FetchPost[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [keywordLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (query) {
-      fetch(`/api/search/keyword?query=${query}`)
+      fetch(`/api/search/keyword?query=${query}&page=${page}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched data:", data);
-          setResults(data);
+          setResults(data.results);
+          setTotalPages(data.totalPages);
         })
-        .catch((err) => console.error("Error fetching search results:", err));
+        .catch((err) => console.error("Error fetching search results:", err))
+        .finally(() => setLoading(false));
     }
-  }, [query]);
+  }, [query, page]);
 
-  return { results };
+  return { results, totalPages, keywordLoading };
 };

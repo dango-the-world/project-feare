@@ -3,6 +3,7 @@ import { FetchPost } from "../_interfaces/fetchPostInterface";
 
 export const useTagSearch = (tag: string | string[] | undefined) => {
   const [results, setResults] = useState<FetchPost[]>([]);
+  const [tagLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (tag) {
@@ -12,9 +13,10 @@ export const useTagSearch = (tag: string | string[] | undefined) => {
           console.log("Fetched data:", data);
           setResults(data);
         })
-        .catch((err) => console.error("Error fetching search results:", err));
+        .catch((err) => console.error("Error fetching search results:", err))
+        .finally(() => setLoading(false));
     }
   }, [tag]);
 
-  return { results };
+  return { results, tagLoading };
 };

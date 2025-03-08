@@ -1,6 +1,6 @@
-import { UIProvider } from "@yamada-ui/react";
-import { Header } from "./_components/header/Header";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import { MainLayout } from "./_components/MainLayout";
 
 export const metadata: Metadata = {
   title: "FEARE",
@@ -20,10 +20,9 @@ export default function RootLayout({
           color: "#fff",
         }}
       >
-        <UIProvider>
-          <Header />
-          {children}
-        </UIProvider>
+        <SessionProvider>
+          <MainLayout>{children}</MainLayout>
+        </SessionProvider>
       </body>
     </html>
   );

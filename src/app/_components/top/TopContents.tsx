@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import { RankingArea } from "./RankingArea";
 import { RecommendArea } from "./RecommendArea";
 import PostButton from "./PostButton";
-import { Box, Tab, TabPanel, Tabs } from "@yamada-ui/react";
+import { Box, Tab, TabPanel, Tabs, useBreakpointValue } from "@yamada-ui/react";
 
 export const TopContents = () => {
   const [isClient, setIsClient] = useState(false);
+
+  const boxWidth = useBreakpointValue({ base: "1000px", sm: "90%" });
 
   useEffect(() => {
     setIsClient(true);
@@ -18,24 +20,22 @@ export const TopContents = () => {
   }
 
   return (
-    <>
-      <Box width={"1000px"} margin={"100px auto"}>
-        {/* <RankingArea /> */}
+    <Box width={boxWidth} margin={"100px auto"}>
+      {/* <RankingArea /> */}
 
-        <Tabs>
-          <Tab color={"#fff"}>新しい投稿</Tab>
-          <Tab color={"#fff"}>人気の投稿</Tab>
+      <Tabs>
+        <Tab color={"#fff"}>新しい投稿</Tab>
+        <Tab color={"#fff"}>人気の投稿</Tab>
 
-          <TabPanel>
-            <RecommendArea />
-          </TabPanel>
-          <TabPanel>
-            <RankingArea />
-          </TabPanel>
-        </Tabs>
+        <TabPanel>
+          <RecommendArea />
+        </TabPanel>
+        <TabPanel>
+          <RankingArea />
+        </TabPanel>
+      </Tabs>
 
-        <PostButton />
-      </Box>
-    </>
+      <PostButton />
+    </Box>
   );
 };

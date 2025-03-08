@@ -1,10 +1,14 @@
+"use client";
+
 import React from "react";
 import { PostForm } from "./PostForm";
-import { Box } from "@yamada-ui/react";
+import { Box, useBreakpointValue } from "@yamada-ui/react";
 
 export const CreatePostContent = () => {
+  const boxWidth = useBreakpointValue({ base: "1000px", sm: "90%" });
+
   return (
-    <Box width={"1000px"} margin={"20px auto"}>
+    <Box width={boxWidth} margin={"20px auto"}>
       <PostForm />
     </Box>
   );
