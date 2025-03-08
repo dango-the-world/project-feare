@@ -2,10 +2,44 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../../../auth";
 
+export async function GET(
+  req: NextRequest,
+  context: { params: { id: string } } // ← 修正
+) {
+  const { params } = context; // `params` を `context` から取り出す
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
+    const postId = params.id;
+
+    if (!userId) {
+      return NextResponse.json({ isScary: false }, { status: 200 });
+    }
+
+    const existingScary = await prisma.scary.findUnique({
+      where: {
+        userId_postId: {
+          userId,
+          postId,
+        },
+      },
+    });
+
+    return NextResponse.json({ isScary: !!existingScary }, { status: 200 });
+  } catch (error) {
+    console.error("Error checking scary status:", error);
+    return NextResponse.json(
+      { error: "Failed to check scary status" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } } // ← 修正
 ) {
+  const { params } = context; // `params` を `context` から取り出す
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -71,38 +105,6 @@ export async function PATCH(
     console.error("Error updating scary status:", error);
     return NextResponse.json(
       { error: "Failed to update scary status" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const session = await auth();
-    const userId = session?.user?.id;
-    const postId = params.id;
-
-    if (!userId) {
-      return NextResponse.json({ isScary: false }, { status: 200 });
-    }
-
-    const existingScary = await prisma.scary.findUnique({
-      where: {
-        userId_postId: {
-          userId,
-          postId,
-        },
-      },
-    });
-
-    return NextResponse.json({ isScary: !!existingScary }, { status: 200 });
-  } catch (error) {
-    console.error("Error checking scary status:", error);
-    return NextResponse.json(
-      { error: "Failed to check scary status" },
       { status: 500 }
     );
   }
