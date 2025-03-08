@@ -23,9 +23,6 @@ export function useCreatePost() {
         body: JSON.stringify(postData),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to create post");
-      }
       return await res.json();
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

@@ -5,9 +5,11 @@ import { RankingArea } from "./RankingArea";
 import { RecommendArea } from "./RecommendArea";
 import PostButton from "./PostButton";
 import { Box, Tab, TabPanel, Tabs, useBreakpointValue } from "@yamada-ui/react";
+import { useSession } from "next-auth/react";
 
 export const TopContents = () => {
   const [isClient, setIsClient] = useState(false);
+  const { data: session } = useSession();
 
   const boxWidth = useBreakpointValue({ base: "1000px", sm: "90%" });
 
@@ -35,7 +37,7 @@ export const TopContents = () => {
         </TabPanel>
       </Tabs>
 
-      <PostButton />
+      {session ? <PostButton /> : null}
     </Box>
   );
 };
