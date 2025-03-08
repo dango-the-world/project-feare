@@ -2,15 +2,21 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../../../auth";
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } } // ← 修正
-) {
-  const { params } = context; // `params` を `context` から取り出す
+export async function GET(req: NextRequest) {
   try {
     const session = await auth();
     const userId = session?.user?.id;
-    const postId = params.id;
+
+    // `id` を URL パスから取得
+    const pathSegments = req.nextUrl.pathname.split("/");
+    const postId = pathSegments[pathSegments.length - 2]; // `/api/post/[id]/scary` の [id] を取得
+
+    if (!postId) {
+      return NextResponse.json(
+        { error: "Post ID is required" },
+        { status: 400 }
+      );
+    }
 
     if (!userId) {
       return NextResponse.json({ isScary: false }, { status: 200 });
@@ -35,11 +41,7 @@ export async function GET(
   }
 }
 
-export async function PATCH(
-  req: NextRequest,
-  context: { params: { id: string } } // ← 修正
-) {
-  const { params } = context; // `params` を `context` から取り出す
+export async function PATCH(req: NextRequest) {
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -51,7 +53,16 @@ export async function PATCH(
       );
     }
 
-    const postId = params.id;
+    // `id` を URL パスから取得
+    const pathSegments = req.nextUrl.pathname.split("/");
+    const postId = pathSegments[pathSegments.length - 2]; // `/api/post/[id]/scary` の [id] を取得
+
+    if (!postId) {
+      return NextResponse.json(
+        { error: "Post ID is required" },
+        { status: 400 }
+      );
+    }
 
     const existingScary = await prisma.scary.findUnique({
       where: {
